@@ -1,4 +1,3 @@
-//*****121810314004*****//
 //First Come First Serve
 #include<iostream>
 using namespace std;
