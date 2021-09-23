@@ -1,0 +1,69 @@
+#include<iostream>
+#include <numeric>      
+#include<iomanip>
+using namespace std;
+
+int arraySum(int a[], int nw)  
+{ 
+    int initial_sum  = 0;  
+    return accumulate(a, a+nw, initial_sum); 
+} 
+
+int main()
+{
+cout<<"enter no. of processes! "<<endl;
+int n=0;
+cin>>n;
+int a;
+
+int j,bt[n],wt[n],i,tat[n];
+for(i=0;i<n;i++)
+{
+wt[i]=0;//array waiting time need to initiaize 2 zero!
+}
+for(i=0;i<n;i++)//burst time 
+{
+cout<<"enter burst time of process "<<i+1<<endl;
+cin>>bt[i];
+}
+//wt[0]=0;
+for(i=0;i<n;i++)
+{
+for( j=0;j<i;j++)
+{
+wt[i]+=bt[j];
+}//cout<<"wt test"<<wt[i]<<endl;
+}
+cout<<setw(5)<<"process"<<setw(5)<<"BT"<<setw(5)<<"WT"<<setw(5)<<"TAT"<<endl;
+for(i=0;i<n;i++)
+{
+tat[i]=bt[i]+wt[i];
+}
+for(i=0;i<n;i++)
+{
+cout<<setw(5)<<"p"<<i<<setw(5)<<bt[i]<<setw(5)<<wt[i]<<setw(5)<<tat[i]<<endl;
+}
+
+int awt=0;
+ int nq = sizeof(wt)/sizeof(wt[0]); 
+awt=arraySum(wt, nq);
+awt=awt/n;
+cout<<setw(5)<<"awt = "<<awt<<endl;
+
+int atat =0;
+int nw=sizeof(tat)/sizeof(tat[0]);
+atat=arraySum(tat,nq);
+atat=atat/n;
+cout<<setw(5)<<"atat = "<<atat<<endl;
+
+
+cout<<" ____________________"<<endl;
+cout<<"|  p1   |  p2  | p3 |"<<endl;
+cout<<" --------------------"<<endl;
+for(i=0;i<n;i++)
+{
+cout<<wt[i]<<setw(7);
+}
+cout<<tat[n-1];
+return 0;
+}
