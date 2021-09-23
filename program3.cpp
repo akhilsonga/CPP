@@ -1,4 +1,3 @@
-//*****121810314001*****//
 //Shortest Job First Non Preemptive with Arrival time
 #include<iostream> 
 using namespace std; 
