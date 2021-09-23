@@ -1,0 +1,77 @@
+#include<iostream>
+using namespace std;
+class trans
+{
+            int **a,**b;
+            int m,n;
+  public:
+            void initialize();
+            void transpose();
+            void display();
+            void deletes();
+};
+ 
+void trans::initialize()
+{
+            int i,j;
+            cout<<"No. of Rows and Columns: ";
+            cin>>m>>n;
+            a=new int *[m];//creation of input matrix a;
+            for(i=0; i<m; i++)
+                a[i]=new int[n];
+            cout<<"Enter elements for the matrix\n";
+            for(i=0; i<m; i++)
+            for(j=0; j<n; j++)
+            {
+cout<<"enter value for index:"<< i<<j<<endl;//input value;
+cin>>a[i][j];
+            b=new int *[n];//creation of transpose matrix;
+} 
+            for(i=0; i<n; i++)
+            b[i]=new int[m];
+}
+
+void trans::transpose() //transpose function;
+{
+            int i,j; 
+            for(i=0; i<m; i++)
+            for(j=0; j<n; j++)
+            b[j][i]=a[i][j];
+}
+
+void trans::display() //displaying the function;
+{
+            int i,j;
+            cout<<"Transpose:\n";
+            for(i=0; i<n; i++)
+            {
+            for(j=0; j<m; j++)
+                    cout<<b[i][j]<<" ";
+                    cout<<"\n";
+            }
+}
+
+void trans::deletes() //delection of alllocated memory;
+{
+            int i;
+            for(i=0; i<m; i++) delete a[i];
+            delete a;
+            for(i=0; i<n; i++) delete b[i];
+            delete b;
+}
+
+int main() 
+{
+int ac;
+do
+{
+            trans t;
+            t.initialize();
+            t.transpose();
+            t.display();
+            t.deletes();
+            cout<<"enter 1-looping \n 0-exit \n";
+            cin>>ac;
+}while(ac!=0);
+return 0;
+}
