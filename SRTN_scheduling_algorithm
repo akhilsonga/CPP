@@ -1,0 +1,94 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+int getnext(int time,int n,int rt[],int AT[],int finish[])
+{
+int i,low;
+for(i=0;i<n;i++)
+{
+if(finish[i]==0)
+{
+low=i;
+break;
+}
+}
+for(i=0;i<n;i++)
+{
+if(finish[i]!=1)
+if(rt[i]<rt[low]&&AT[i]<=time)
+low=i;
+}
+return low;
+}
+int main()
+{
+int n,AT[10],BT[10],CT[10],rt[10],finish[10],WT[10],TAT[10];
+char p[10][10],t[10];
+int i,j,temp,temp1,old,next,TWT=0,TTAT=0,total=0,time;
+float avg1,avg2;
+cout<<"Enter number of process: ";
+cin>>n;
+for(i=0;i<n;i++)
+{
+cout<<"enter process name, arrival time , burst-time :";
+cin>>p[i]>>AT[i]>>BT[i];
+}
+for(i=0;i<n;i++)
+{
+for(j=i+1;j<n;j++)
+{
+if(AT[i]>AT[j])
+{
+temp=AT[i];
+AT[i]=AT[j];
+AT[j]=temp;
+temp1=BT[i];
+BT[i]=BT[j];
+BT[j]=temp1;
+strcpy(t,p[i]);
+strcpy(p[i],p[j]);
+strcpy(p[j],t);
+}
+}
+}
+for(i=0;i<n;i++)
+{
+rt[i]=BT[i];
+finish[i]=WT[i]=TAT[i]=0;
+total+=BT[i];
+}
+for(time=0;time<total;time++)
+{
+old=next;
+next=getnext(time,n,rt,AT,finish);
+rt[next]=rt[next]-1;
+if(rt[next]==0)
+finish[next]=1;
+for(i=0;i<n;i++)
+if(i!=next&&finish[i]==0&&AT[i]<=time)
+WT[i]++;
+}
+for(i=0;i<n;i++)
+{
+TWT+=WT[i];
+TAT[i]=WT[i]+BT[i];
+TTAT+=TAT[i];
+CT[i]=TAT[i]+AT[i];
+}
+
+cout<<"\n------------------------------------------\n";
+cout<<"\nPname\tAT\tBT\tWT\tTAT\tCT\n";
+cout<<"\n------------------------------------------";
+
+for(i=0;i<n;i++)
+{
+
+cout<<p[i]<<AT[i]<<BT[i]<<WT[i]<<TAT[i]<<CT[i];
+}
+cout<<"\n------------------------------------------\n";
+avg1=(float)TWT/n;
+avg2=(float)TTAT/n;
+cout<<"Average Waiting time="<<avg1;
+cout<<"\nAverage TurnAroundTime="<<avg2;
+return 0;
+}
